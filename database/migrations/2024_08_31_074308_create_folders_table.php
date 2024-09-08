@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('folders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('folder_id')->constrained(); // 外部キー
-            $table->string('title', length: 100);
-            $table->date('due_date');
-            $table->integer('status')->default(1);
+            $table->string('name', length: 20);
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('folders');
     }
 };

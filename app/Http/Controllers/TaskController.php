@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\Folder;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(int $id): View
     {
-        //
+        $folders = Folder::all();
+
+        return view('tasks/index', [
+            'folders' => $folders,
+            'folder_id' => $id
+        ]);
     }
 
     /**
