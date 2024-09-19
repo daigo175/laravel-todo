@@ -6,19 +6,20 @@ use App\Models\Task;
 use App\Models\Folder;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Log;
 
 class TaskController extends Controller
 {
     /**
-     * Display a listing of the resource.
      */
     public function index(int $id): View
     {
         $folders = Folder::all();
-
+        $tasks = Folder::find($id)->tasks()->get();
         return view('tasks/index', [
             'folders' => $folders,
-            'folder_id' => $id
+            'folder_id' => $id,
+            'tasks' => $tasks,
         ]);
     }
 

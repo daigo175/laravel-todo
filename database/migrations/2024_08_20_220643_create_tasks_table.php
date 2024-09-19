@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('folder_id')->constrained(); // 外部キー
+            $table->foreignId('folder_id')->constrained()->onDelete('cascade'); // 外部キー（親と同時削除設定）
             $table->string('title', length: 100);
             $table->date('due_date');
             $table->integer('status')->default(1);
