@@ -26,4 +26,22 @@ class FolderController extends Controller
         
         return redirect()->route('tasks.index', [$folder]);
     }
+
+    public function edit(string $id): View
+    {
+        $folder = Folder::find($id);
+
+        return view('folders/edit', ['folder' => $folder]);
+    }
+
+    public function update(StoreFolderRequest $request, string $id): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        $folder = Folder::find($id);
+        $folder->name = $request->name;
+        $folder->save();
+        
+        return redirect()->route('tasks.index', [$folder]);
+    }
 }

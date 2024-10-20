@@ -17,4 +17,6 @@ Route::controller(TaskController::class)->group(function () {
 Route::controller(FolderController::class)->group(function () {
     Route::get('/folders/create', 'create');
     Route::post('/folders', 'store');
+    Route::get('/folders/{id}/edit', 'edit')->name('folder.edit');
+    Route::post('/folders/{id}/update', 'update')->name('folder.update');
 });
