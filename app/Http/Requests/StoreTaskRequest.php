@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Enums\TaskStatus;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Enum;
 
 class StoreTaskRequest extends FormRequest
 {
@@ -23,6 +26,7 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'title' => ['required', 'max:100'],
+            'status' => [Rule::enum(TaskStatus::class)],
             'due_date' => ['required', 'date', 'after_or_equal:today'],
         ];
     }
@@ -36,6 +40,7 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'title' => 'タスク名',
+            'status' => '状態',
             'due_date' => '期限',
         ];
     }
@@ -49,6 +54,9 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'due_date.after_or_equal' => '期限は本日以降の日付を設定してください',
+            // (これは機能しない)'status.enum' => '状態は未着手、着手中、完了のいずれかを設定してください',
+            // https://masteringlaravel.io/daily/2024-07-29-how-to-customize-the-message-for-enum-validation
+            sprintf('status.%s', Enum::class) => '状態は未着手、着手中、完了のいずれかを設定してください',
         ];
     }
 }

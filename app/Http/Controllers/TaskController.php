@@ -61,17 +61,29 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Task $task)
+    public function edit(String $folder_id, String $task_id): View
     {
-        //
+        $task = Task::find($task_id);
+        
+        return view('tasks/edit', ['task' => $task]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Task $task)
+    public function update(string $folder_id, string $task_id, StoreTaskRequest $request): RedirectResponse
     {
-        //
+        $validated = $request->validated();
+
+        $task = Task::find($task_id);
+        $task->title = $request->title;
+        $task->status = $request->status;
+        $task->due_date = $request->due_date;
+ 
+        $task->save();
+
+        $folder = Folder::find($folder_id);
+        return redirect()->route('tasks.index', [$folder]);
     }
 
     /**
