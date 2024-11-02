@@ -20,11 +20,11 @@
                                 </td>
                                 <td><a href="{{ route('folder.edit', ['id' => $folder->id]) }}">編集</a></td>
                                 <td>
-                                <form method="POST" action="{{ route('folder.delete', ['id' => $folder->id]) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">削除</button>
-                                </form>
+                                    <form method="POST" action="{{ route('folder.delete', ['id' => $folder->id]) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">削除</button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -64,7 +64,13 @@
                                     </td>
                                     <td>{{ $task->due_date }}</td>
                                     <td><a href="{{ route('tasks.edit', ['folder_id' => $folder_id, 'task_id' => $task->id]) }}">編集</a></td>
-                                    <td><a href="#">削除</a></td>
+                                    <td>
+                                        <form method="POST" action="{{ route('tasks.delete', ['folder_id' => $folder_id, 'task_id' => $task->id]) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">削除</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
