@@ -21,4 +21,5 @@ Route::controller(FolderController::class)->group(function () {
     Route::post('/folders', 'store');
     Route::get('/folders/{id}/edit', 'edit')->name('folder.edit');
     Route::post('/folders/{id}/update', 'update')->name('folder.update');
+    Route::delete('/folders/{id}', 'destroy')->name('folder.delete');
 });
