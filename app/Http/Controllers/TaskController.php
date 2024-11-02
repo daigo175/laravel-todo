@@ -14,8 +14,13 @@ class TaskController extends Controller
 {
     /**
      */
-    public function index(int $id): View
+    public function index(int $id): mixed
     {
+        // フォルダが1件も存在しない場合は、フォルダ作成画面にリダイレクトする
+        if (Folder::find($id) === NULL) {
+            return redirect()->route('folder.create');
+        }
+
         $folders = Folder::all();
         $tasks = Folder::find($id)->tasks()->get();
         return view('tasks/index', [
@@ -86,11 +91,12 @@ class TaskController extends Controller
         return redirect()->route('tasks.index', [$folder]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Task $task)
+    public function destroy(string $folder_id, string $task_id): RedirectResponse
     {
-        //
+        $task = Task::find($task_id);
+        $task->delete();
+        $first_folder = Folder::first();
+        return redirect()->route('tasks.index', [$first_folder]);
     }
+
 }

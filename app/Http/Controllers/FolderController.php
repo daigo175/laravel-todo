@@ -50,6 +50,11 @@ class FolderController extends Controller
         $folder = Folder::find($id);
         $folder->delete();
         $first_folder = Folder::first();
-        return redirect()->route('tasks.index', [$first_folder]);
+        if ($first_folder === null) {
+            // フォルダが1件も存在しない場合は、フォルダ作成画面にリダイレクトする
+            return redirect()->route('folder.create');
+        } else {
+            return redirect()->route('tasks.index', [$first_folder]);
+        }
     }
 }
