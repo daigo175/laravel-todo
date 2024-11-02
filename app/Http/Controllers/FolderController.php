@@ -44,4 +44,12 @@ class FolderController extends Controller
         
         return redirect()->route('tasks.index', [$folder]);
     }
+
+    public function destroy(string $id): RedirectResponse
+    {
+        $folder = Folder::find($id);
+        $folder->delete();
+        $first_folder = Folder::first();
+        return redirect()->route('tasks.index', [$first_folder]);
+    }
 }
