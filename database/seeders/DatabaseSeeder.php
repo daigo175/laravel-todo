@@ -13,11 +13,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 各テーブルを初期化
+        \App\Models\User::truncate();
+        \App\Models\Folder::truncate();
+        \App\Models\Task::truncate();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        $this->call([
+            UserSeeder::class,
+            FolderSeeder::class,
+            TaskSeeder::class,
         ]);
     }
 }
