@@ -14,7 +14,7 @@ class User extends Authenticatable
 
     public function folders(): HasMany
     {
-        return $this->hasMany(Task::class);
+        return $this->hasMany(Folder::class);
     }
 
 
