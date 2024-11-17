@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreTaskRequest;
 
 class TaskController extends Controller
@@ -21,7 +22,8 @@ class TaskController extends Controller
             return redirect()->route('folder.create');
         }
 
-        $folders = Folder::all();
+        $user = Auth::user();
+        $folders = $user->folders;
         $tasks = Folder::find($id)->tasks()->get();
         return view('tasks/index', [
             'folders' => $folders,
