@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Folder;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreFolderRequest;
 
 
@@ -19,10 +20,10 @@ class FolderController extends Controller
     public function store(StoreFolderRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-
-        $folder = new Folder;
-        $folder->name = $request->name;
-        $folder->save();
+        
+        $folder = new Folder(['name' => $request->name]);
+        $user = Auth::user();         
+        $user->folders()->save($folder);
         
         return redirect()->route('tasks.index', [$folder]);
     }

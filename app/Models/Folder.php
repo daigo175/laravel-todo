@@ -12,6 +12,9 @@ class Folder extends Model
 {
     use HasFactory;
 
+    // マスアサインメント割当を許可
+    protected $fillable = ['name'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
